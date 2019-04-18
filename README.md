@@ -1,4 +1,4 @@
-#*GABRISHELL*
+#**GABRISHELL**
 
 Este é um interpretador de comandos bastante simples que faz chamadas ao sistema operacional realizar as seguintes comandos:
 
