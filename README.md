@@ -1,20 +1,20 @@
-#**GABRISHELL**
+# **GABRISHELL**
 
 Este é um interpretador de comandos bastante simples que faz chamadas ao sistema operacional realizar as seguintes comandos:
 
-##PWD
+## PWD
 Imprime o diretório de trabalho atual
 
-##CD <caminho>
+## CD <caminho>
 Muda o diretório de trabalho para o especificado em <caminho>
 
-##LS
+## LS
 Imprime o conteúdo do diretório atual
 
-##MORE <arquivo>
+## MORE <arquivo>
 Imprime o conteúdo do arquivo especificado
 
-##GREP <item>
+## GREP <item>
 Imprime todas as linhas em que a string <item> aparece
 
 
