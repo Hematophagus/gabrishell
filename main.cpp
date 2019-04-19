@@ -4,6 +4,7 @@
 #include <dirent.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <fstream>
 #include <curses.h>
 #include <term.h>
 
@@ -17,6 +18,10 @@ void cd(char *buffer);
 
 void more(char *buffer);
 
+void grep(char *buffer);
+
+//void pipemode(char *buffer);
+
 int numParameters(char *buffer){
 	int i = 1;
 	char *p = strstr(buffer, " ");
@@ -24,22 +29,18 @@ int numParameters(char *buffer){
 		p = strstr(&p[1], " ");
 		i++;	
 	}
-	
+
 	return i;
 }
 
 char **split(char *buffer){
-	int i = 0, num = numParameters(buffer);
+	int i = 0, num = numParameters(buffer)+1;
 	char *p = strtok(buffer, " "), **argv = new char*[num];
 	while(p != NULL){
 
-		//if(i > 0){
-			//cout << i << "\n"; 
-			argv[i] = new char[255];
-			strcpy(argv[i], p);		 
-			//cout << argv[i-1] << "\n";			
-
-		//}
+		argv[i] = new char[255];
+		strcpy(argv[i], p);		 
+		
 		i++;			
 
 		p = strtok(NULL, " ");
@@ -73,7 +74,11 @@ int main(){
 		pop();
 
 		cin.getline(buffer, PATH_MAX-1);	
-		cout << numParameters(buffer) << "\n";
+		/*cout << buffer;
+		if(strstr(buffer, " | ") != NULL){
+			pipemode(buffer);
+		} 
+		*/
 		if(!strcasecmp(buffer, "pwd"))
 			pwd();
 		else if(!strncasecmp(buffer, "cd", 2))
@@ -82,8 +87,9 @@ int main(){
 			ls(buffer);
 		else if(!strncasecmp(buffer, "more", 4)){
 			more(buffer);
+		}else if(!strncasecmp(buffer, "grep", 4)){
+			grep(buffer);
 		}
-		
 		if(!strcasecmp(buffer, "exit"))
 			exit(EXIT_SUCCESS);	
 	}
@@ -132,6 +138,7 @@ void more(char *buffer){
 	pid_t pid = fork();
 	int status;
 	char **argv = split(buffer);
+	
 	if(pid != 0)
 		waitpid(-1, &status, 0);
 	else{
@@ -144,3 +151,23 @@ void more(char *buffer){
 	}
 
 }
+
+void grep(char *buffer){
+	pid_t pid = fork();
+	int status;
+	char **argv = split(buffer);
+	
+	if(pid != 0)
+		waitpid(-1, &status, 0);
+	else{
+		if(execv("/bin/grep", argv) < 0){
+			push(1);
+			perror("Impossível executar o comando");
+			pop();		
+		}
+		_exit(EXIT_SUCCESS);	
+	}
+
+}
+
+ 	
