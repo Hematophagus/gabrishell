@@ -4,6 +4,7 @@ using namespace std;
 
 int main(){
 	char *buffer = new char[PATH_MAX];
+	char *path = new char[PATH_MAX];
 	pid_t pid;
 	int status;
 
@@ -16,6 +17,10 @@ int main(){
 		cout << "GABRISHELL";
 		push(7);
 		cout << ":" ;
+		push(4);
+		cout << &path[1];
+		push(7);
+		cout << "$ ";
 		pop();
 
 		cin.getline(buffer, PATH_MAX-1);	
@@ -26,15 +31,17 @@ int main(){
 			pwd();
 		else if(!strncasecmp(buffer, "cd", 2))
 			cd(buffer);
-		else if(!strcasecmp(buffer, "ls"))
+		else if(!strcasecmp(buffer, "ls")){		
 			ls(buffer);
-		else if(!strncasecmp(buffer, "more", 4)){
+		}else if(!strncasecmp(buffer, "more", 4)){
 			more(buffer);
 		}else if(!strncasecmp(buffer, "grep", 4)){
 			grep(buffer);
 		}
+		getcwd(path, PATH_MAX);
 		if(!strcasecmp(buffer, "exit"))
-			exit(EXIT_SUCCESS);	
+			break;	
 	}
+	exit(EXIT_SUCCESS);
 	return 0;
 }

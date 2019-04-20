@@ -19,6 +19,9 @@ Imprime o conteúdo do arquivo especificado
 ### GREP [item]
 Imprime todas as linhas em que a string [item] aparece
 
+## EXIT
+Encerra o interpretador 
+
 ## PIPE
 A rigor, um pipe entre comandos é uma funcionalidade que permite que a saída de um comando sirva de pamâmetro para outro comando. Para realizar um pipe, use o operador "|" entre um comando e outro.
 Por  exemplo:

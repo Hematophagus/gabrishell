@@ -16,13 +16,13 @@ void ls(char *buffer){
 	pid_t pid = fork();
 	int status;
 	char **argv = split(buffer);
-	
+	cout << "#" << argv[0] << "*\n";
 	if(pid != 0)
 		waitpid(-1, &status, 0);
 	else{
 		if(execv("/bin/ls", argv) < 0){
 			push(1);
-			perror("Impossível executar o comando");
+			perror("[ERRO] Impossível executar o comando");
 			pop();		
 		}
 		_exit(EXIT_SUCCESS);	
@@ -128,13 +128,20 @@ void pipemode(char *buffer){
 
 void pwd(){
 	char *path = new char[PATH_MAX];
-	
-	if(getcwd(path, PATH_MAX) != NULL)
-		cout << path << "\n";
+	pid_t pid = fork();
+	int status;
+
+	if(pid != 0)
+		waitpid(-1, &status, 0);
 	else{
-		push(1);
-		perror("[ERRO] Não foi possível imprimir o diretório atual");
-		pop();
+		if(getcwd(path, PATH_MAX) != NULL)
+			cout << path << "\n";
+		else{
+			push(1);
+			perror("[ERRO] Não foi possível imprimir o diretório atual");
+			pop();
+		}
+		_exit(EXIT_SUCCESS);
 	}
 	delete []path;
 	return;
