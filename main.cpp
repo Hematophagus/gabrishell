@@ -11,6 +11,7 @@ int main(){
 	setupterm(NULL, STDOUT_FILENO, NULL);
 	putp(exit_attribute_mode);
 	system("clear");
+	getcwd(path, PATH_MAX);
 	
 	while(true){
 		push(2);
@@ -42,6 +43,9 @@ int main(){
 		if(!strcasecmp(buffer, "exit"))
 			break;	
 	}
+	
+	delete []buffer;
+	delete []path;
 	exit(EXIT_SUCCESS);
 	return 0;
 }
