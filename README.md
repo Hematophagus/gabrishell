@@ -51,10 +51,10 @@ ou
 ```g++ cmds.cpp main.cpp support.cpp -o [nomedoexecutavel] -lncurses```
 
 ## BUGS CONHECIDOS
-[x] Pipe interrompe o looping do Shell;
-[x] Às vezes a saída dos comandos ocorre apenas após o encerramento do Shell
-[x] Argumentos com aspas não são aceitos nos comandos ```more``` e ```grep```
-[x] Formatação não funciona nos comandos ```ls```, ```more``` e ```grep```, e nem nas mensagens de erro; 
+- [x] Pipe interrompe o looping do Shell;
+- [x] Às vezes a saída dos comandos ocorre apenas após o - encerramento do Shell
+- [x] Argumentos com aspas não são aceitos nos comandos ```more``` e ```grep```
+- [x] Formatação não funciona nos comandos ```ls```, ```more``` e ```grep```, e nem nas mensagens de erro; 
 
 
 
